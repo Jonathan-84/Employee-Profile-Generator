@@ -100,7 +100,7 @@ const addEngineer = () => {
         },
         {
             type: "input",
-            name: "username",
+            name: "school",
             message: "What is the name of the Intern's school?",
         },
         ])
