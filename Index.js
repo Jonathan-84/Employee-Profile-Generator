@@ -6,96 +6,147 @@ const fs = require("fs");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
+const path = require("path");
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
+const render = require("./lib/renderHtml.js");
 
 const employees = [];
 
 function init() {
-    inquirer.prompt(questions)
-    .then(data => {
-      console.log(data)
-      //writeToFile("README.md", generateMarkdown(data))
-    })
+    addManager();
   }
 
-/*function addEmployee() {
-    inquirer.prompt(*/
-        const questions= [
+
+const addManager = () => {
+    inquirer.prompt ([
         {
             type: "input",
             name: "name",
-            message: "What is the employee's name?",
+            message: "What is the Manager's name?",
           },
-    {
-        type: "list",
-        name: "role",
-        message: "Select the emoloyee's role",
-        choices: [
-            "Engineer",
-            new inquirer.Separator(),
-            "Intern",
-            new inquirer.Separator(),
-            "Manager"
-        ],
-    },
     {
         type: "input",
         name: "id",
-        message: "Enter employee's id",
+        message: "Enter Manager's id",
         
     },
     {
         type: "input",
         name: "email",
-        message: "Enter employee's email address",
+        message: "Enter Manager's email address",
     },
-        ];
-  /*  .then(function({name, role, id, email}) {
-        let uniqueInfo = "";
-        if (role === "Engineer") {
-            uniqueInfo = "GitHub Username";
-        } else if (role === "Intern") {
-            uniqueInfo = "Name of School";
-        } else {
-            uniqueInfo = "Office Phone Number";
-        }
-        inquirer.prompt([{
+    {
+        type: "input",
+        name: "number",
+        message: "What is the Manager's office number?",
+    },
+    ])
+    .then(data=>{
+        const manager = new Manager (data.name, data.id, data.email, data.number);
+        employees.push(manager);
+        addEmployee();
+    })
+
+}
+
+const addEngineer = () => {
+    inquirer.prompt ([
+        {
             type: "input",
-            name: "uniqueInfo",
-            message: `Enter employee's ${uniqueInfo}`,
+            name: "name",
+            message: "What is the Engineer's name?",
+          },
+    {
+        type: "input",
+        name: "id",
+        message: "Enter Engineer's id",
+        
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "Enter Engineer's email address",
+    },
+    {
+        type: "input",
+        name: "username",
+        message: "What is the Engineer's GitHub Username?",
+    },
+    ])
+    .then(data=>{
+        const engineer = new Engineer (data.name, data.id, data.email, data.username);
+        employees.push(engineer);
+        addEmployee();
+    })
+}
+    const addIntern = () => {
+        inquirer.prompt ([
+            {
+                type: "input",
+                name: "name",
+                message: "What is the Intern's name?",
+              },
+        {
+            type: "input",
+            name: "id",
+            message: "Enter Intern's id",
             
         },
         {
+            type: "input",
+            name: "email",
+            message: "Enter Intern's email address",
+        },
+        {
+            type: "input",
+            name: "username",
+            message: "What is the name of the Intern's school?",
+        },
+        ])
+        .then(data=>{
+            const intern = new Intern (data.name, data.id, data.email, data.school);
+            employees.push(intern);
+            addEmployee();
+        })
+    }
+    
+const addEmployee = () => {
+    inquirer.prompt ([
+        {
             type: "list",
-            name: "addEmployees",
-            message: "Would you like to add more employee's?",
+            name: "type",
+            message: "Do you want to add additional team members?",
             choices: [
-                "yes",
+                "Engineer",
                 new inquirer.Separator(),
-                "no"
+                "Intern",
+                new inquirer.Separator(),
+               " No, I don't wish to add more",
             ],
-            
-        }])
-    /*    .then(function({uniqueInfo, moreMembers}) {
-            let newMember;
-            if (role === "Engineer") {
-                newMember = new Engineer(name, id, email, uniqueInfo);
-            } else if (role === "Intern") {
-                newMember = new Intern(name, id, email, uniqueInfo);
-            } else {
-                newMember = new Manager(name, id, email, uniqueInfo);
+          },
+        ])
+        .then (data=> {
+            switch(data.type) {
+                case "Engineer":
+                    addEngineer()
+                    break;
+                case "Intern":
+                    addIntern()
+                    break;
+                default: 
+                buildHtml()
             }
-            employees.push(newMember);
-            addHtml(newMember)
-            .then(function() {
-                if (addEmployees === "yes") {
-                    addEmployee();
-                } else {
-                    finishHtml();
-                }
-            });
-            
-        });
-        */
+        })
+}
 
+ const buildHtml=()=> 
+ {
+    if (!fs.existsSync(OUTPUT_DIR)) {
+      fs.mkdirSync(OUTPUT_DIR)
+    }
+    fs.writeFileSync(outputPath, render(employees), "utf-8");
+  
 
+}
 init();
