@@ -27,6 +27,10 @@
 
   ## Images
 
+![Command Line Prompts](https://raw.githubusercontent.com/Jonathan-84/Employee-Profile-Generator/master/assets/images/screenshot-commandline.jpg)
+
+![Generated Html Page](https://raw.githubusercontent.com/Jonathan-84/Employee-Profile-Generator/master/assets/images/Screenshot%20.jpg)
+
    ## Test
   [Check out the Test](https://drive.google.com/file/d/1iU8VPLPslo8x0iloGX26gQ4ZzzeMmSsG/view)
 
