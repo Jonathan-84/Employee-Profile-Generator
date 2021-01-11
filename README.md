@@ -32,7 +32,8 @@
 ![Generated Html Page](https://raw.githubusercontent.com/Jonathan-84/Employee-Profile-Generator/master/assets/images/Screenshot%20.jpg)
 
    ## Test
-  [Check out the Test](https://drive.google.com/file/d/1iU8VPLPslo8x0iloGX26gQ4ZzzeMmSsG/view)
+  [Check out the commandline and page creation](https://drive.google.com/file/d/1iU8VPLPslo8x0iloGX26gQ4ZzzeMmSsG/view)
+  [Check out the Tests](https://drive.google.com/file/d/1Eth0EN-L7q-kSNr7eUB9lMewi2L4Kqkd/view)
 
   ## License
   MIT
